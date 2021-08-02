@@ -12,7 +12,7 @@ public class Music {
     private List<Comment> comments;
     private int likes;
 
-    public Music(String title, String ID, String artist , String releaseYear) {
+    public Music(String title, String ID, String artist, String releaseYear) {
         this.Title = title;
         this.ID = ID;
         this.artist = artist;
@@ -52,5 +52,10 @@ public class Music {
 
     public void setLikes(int likes) {
         this.likes = likes;
+    }
+
+    @Override
+    public String toString(){
+        return getID()+" " + getTitle()+" "+ getArtist()+" " +getReleaseYear();
     }
 }
