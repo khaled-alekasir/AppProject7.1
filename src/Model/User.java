@@ -20,6 +20,15 @@ public class User {
         this.privateList = new ArrayList<>();
         this.filters = new HashSet<>();
     }
+    private Playlist findPlaylistById(String ID){
+        List<Playlist> allPlaylists = new ArrayList<>(privateList);
+        allPlaylists.retainAll(privateList);
+        for (Playlist playlist : allPlaylists) {
+            if(playlist.getID().equals(ID))
+                return playlist;
+        }
+        throw new IllegalArgumentException("playlist Does not exists");
+    }
 
     public String getUsername() {
         return username;
@@ -73,5 +82,20 @@ public class User {
         for (Music music : liked) {
             System.out.println(music);
         }
+    }
+    public void deleteLike(Music music){
+        if(!liked.contains(music))
+            throw new IllegalArgumentException("music was not liked before");
+        liked.remove(music);
+        music.setLikes(music.getLikes()-1);
+    }
+    public void addPlaylist(Playlist newPlaylist){
+        if(newPlaylist.isPrivate())
+            privateList.add(newPlaylist);
+        else
+            publicList.add(newPlaylist);
+    }
+    public Playlist getPlaylist(String ID){
+        return findPlaylistById(ID);
     }
 }

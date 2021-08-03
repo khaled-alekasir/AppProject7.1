@@ -11,6 +11,7 @@ public enum ConsoleViewCommands {
     GET_SONGS_USING_ID("(?i)\\s*GET\\s+songs\\s+\\?\\s+id\\s+\\d*"),
     GET_SONGS_USER_LIKES("(?i)\\s*get\\s+likes"),
     LIKE_NEW_SONG("(?i)\\s*post\\s+likes\\s+\\?\\s+id\\s+\\d+"),
+    UNLIKE_MUSIC("(?i)\\s*DELETE\\s+likes\\s+\\?\\s+id\\s+\\d+"),
     CREATE_NEW_PLAYLIST("(?i)\\s*post\\s+Playlist\\s+\\?\\s+name\\s+\\w+\\s+privacy\\s+(public|private)"),
     GET_USERS_PLAYLIST("(?i)\\s*Get\\s+playlist\\s+\\?\\s+username\\s+\\w+"),
     ADD_SONG_TO_PLAYLIST("(?i)\\s*post\\s+playlists_songs\\s+\\?\\s+playlist_id\\s+\\d+\\s+song_id\\s+\\d+"),

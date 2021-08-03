@@ -1,6 +1,7 @@
 package Control;
 
 import Model.Music;
+import Model.Playlist;
 import Model.User;
 
 import java.io.*;
@@ -43,6 +44,13 @@ public class Utunes{
                 return music;
         }
         throw new IllegalArgumentException("ID matches no music");
+    }
+    private User findUserByUsername(String username){
+        for (User user : users) {
+            if(user.getUsername().equals(username))
+                return user;
+        }
+        throw new IllegalArgumentException("no user with this username");
     }
     public void signUp(String username , String email , String pass){
         User newUser = new User(username , email , pass.hashCode());
@@ -95,6 +103,33 @@ public class Utunes{
         if(loggedIn == null)
             throw new IllegalArgumentException("Permission Denied");
         loggedIn.printLikedMusics();
+    }
+    public void unlikeMusic(String id){
+        if(loggedIn == null)
+            throw new IllegalArgumentException("Permission denied");
+        Music toBeUnliked = findMusicById(id);
+        loggedIn.deleteLike(toBeUnliked);
+    }
+    public void creatNewPlaylist(String title , String privacy){
+        if(loggedIn == null)
+            throw new IllegalArgumentException("Permission denied");
+        loggedIn.addPlaylist(new Playlist(lastPlaylistID+1+"" , title , privacy));
+        lastPlaylistID++;
+    }
+    public List<Playlist> getUsersPlaylist(String username){
+        if(loggedIn == null)
+            throw new IllegalArgumentException("Permission denied");
+        User user = findUserByUsername(username);
+        List<Playlist> publicPlaylistCopy = new ArrayList<>(user.getPublicList());
+        if(user == loggedIn)
+            publicPlaylistCopy.retainAll(user.getPrivateList());
+        return publicPlaylistCopy;
+    }
+    public void addMusicToPlaylist(String musicID , String playlistID){
+        if(loggedIn == null)
+            throw new IllegalArgumentException("Permission denied");
+        Music toBeAdded = findMusicById(musicID);
+        loggedIn.getPlaylist(playlistID).getMusics().add(toBeAdded);
     }
 }
 

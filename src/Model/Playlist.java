@@ -23,7 +23,9 @@ public class Playlist {
     public String getTitle() {
         return Title;
     }
-
+    public String getPrivacy() {
+        return privacy;
+    }
     public List<Music> getMusics() {
         return musics;
     }
